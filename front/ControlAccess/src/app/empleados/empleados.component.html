@@ -1,0 +1,69 @@
+<form [formGroup]="form">
+    <div class="container">
+        <br />
+        <br />
+        <h2>Gestión de Empleados</h2>
+        <br />
+
+        <div class="row align-items-start">
+            <div class="col">
+                <label class="form-label">Primer Apellido</label>
+                <input type="text" class="form-control" formControlName="primerApellido">
+            </div>
+            <div class="col">
+                <label class="form-label">Primer Nombre</label>
+                <input type="text" class="form-control" formControlName="primerNombre">
+            </div>
+            <div class="col">
+                <label class="form-label">Otros Nombres</label>
+                <input type="text" class="form-control" formControlName="otrosNombres">
+            </div>
+            <div class="col">
+                <label class="form-label">Pais</label>
+                <select class="form-select" formControlName="pais">
+                  <option *ngFor="let item of paises" [value]="item.id"> {{item.nombre}}</option>
+                </select>
+            </div>
+            <div class="col">
+                <br />
+                <button type="submit" class="btn btn-outline-success" (click)="save()">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<br />
+<br />
+
+<div class="container">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Primer Apellido</th>
+                <th scope="col">Primer Nombre</th>
+                <th scope="col">Otros Nombres</th>
+                <th scope="col">Email</th>
+                <th scope="col">Pais</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of empleadosPag">
+                <th>{{item.primerApellido}}</th>
+                <th>{{item.primerNombre}}</th>
+                <th>{{item.otrosNombres}}</th>
+                <th>{{item.correoElectronico}}</th>
+                <th>{{item.paisId.nombre}}</th>
+                <th><button class="btn btn-outline-secondary " (click)="editar(item) ">Editar</button><button class="btn btn-outline-secondary " (click)="delete(item.id) ">Eliminar</button></th>
+            </tr>
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" (click)="refreshEmpleados(page - 1)">Previous</a></li>
+            <li class="page-item"><a class="page-link" (click)="refreshEmpleados(page + 1)">Next</a></li>
+            <li class="page-item"><a class="page-link">Pagina :{{page}}  De  {{(this.empleados.length / this.pageSize) | number:'1.0-0'}}</a></li>
+        </ul>
+    </nav>
+</div>
